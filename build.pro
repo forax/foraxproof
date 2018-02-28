@@ -11,6 +11,6 @@ packager.
         "com.github.forax.foraxproof@1.0/com.github.forax.foraxproof.main.Main"
     ))
 
-run(resolver, compiler, packager, runner)
+run(resolver, compiler, docer, packager, runner)
 
 /exit
