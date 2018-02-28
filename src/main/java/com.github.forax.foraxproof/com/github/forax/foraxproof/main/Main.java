@@ -5,6 +5,7 @@ import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReference;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +39,9 @@ public class Main {
       knownPluginMap.values().stream().map(Supplier::get).forEach(plugins::add);
     }
     
-    ErrorReporter reporter = ErrorReporter.log(System.out);
+    HashMap<String, Long> stats = new HashMap<>();
+    ErrorReporter reporter = ErrorReporter.stats(stats);
     Analyzer.run(modules, plugins, reporter);
+    System.out.println("stats " + stats);
   }
 }

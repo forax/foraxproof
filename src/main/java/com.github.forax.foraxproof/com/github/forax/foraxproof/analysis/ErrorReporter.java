@@ -1,6 +1,7 @@
 package com.github.forax.foraxproof.analysis;
 
 import java.io.PrintStream;
+import java.util.Map;
 import java.util.Objects;
 
 public interface ErrorReporter {
@@ -54,5 +55,10 @@ public interface ErrorReporter {
     return (context, type, info) -> {
         printer.println(context.className() + ' ' + context.sourceFile() + ' ' + context.member() + ' ' + context.memberName() + context.memberDescriptor() + ' ' + type + ' ' + info + ' ' + context.line());
     };
+  }
+  
+  public static ErrorReporter stats(Map<String, Long> stats) {
+    Objects.requireNonNull(stats);
+    return (context, type, info) -> stats.merge(type, 1L, Long::sum);
   }
 }
