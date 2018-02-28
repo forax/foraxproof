@@ -1,6 +1,5 @@
 module com.github.forax.foraxproof {
   requires org.objectweb.asm;
-  requires java.base;
   
   uses com.github.forax.foraxproof.analysis.Plugin;
   provides com.github.forax.foraxproof.analysis.Plugin with
