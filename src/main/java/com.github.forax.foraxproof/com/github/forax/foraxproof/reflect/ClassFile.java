@@ -1,8 +1,8 @@
 package com.github.forax.foraxproof.reflect;
 
+import static com.github.forax.foraxproof.AsmVersion.ASM_API;
 import static java.util.Collections.unmodifiableMap;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ASM6;
 import static org.objectweb.asm.Opcodes.V9;
 
 import java.io.IOException;
@@ -92,7 +92,7 @@ public final class ClassFile implements Type {
   private static Info createInfo(InputStream resource, ClassFileLoader loader) {
     try(InputStream input = resource) {
       ClassReader reader = new ClassReader(input);
-      return new ClassVisitor(ASM6) {
+      return new ClassVisitor(ASM_API) {
         private Info info;
         final HashMap<String, Field> fields = new HashMap<>();
         final HashMap<String, Method> methods = new HashMap<>();
@@ -106,7 +106,7 @@ public final class ClassFile implements Type {
         
         @Override
         public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
-          return new FieldVisitor(ASM6) {
+          return new FieldVisitor(ASM_API) {
             private boolean marked;
             
             @Override
@@ -126,7 +126,7 @@ public final class ClassFile implements Type {
         
         @Override
         public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-          return new MethodVisitor(ASM6) {
+          return new MethodVisitor(ASM_API) {
             private boolean marked;
             
             @Override

@@ -1,10 +1,10 @@
 package com.github.forax.foraxproof.plugin;
 
+import static com.github.forax.foraxproof.AsmVersion.ASM_API;
 import static com.github.forax.foraxproof.plugin.Utils.is;
 import static com.github.forax.foraxproof.plugin.Utils.isNot;
 import static org.objectweb.asm.Opcodes.ACC_INTERFACE;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
-import static org.objectweb.asm.Opcodes.ASM6;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -24,7 +24,7 @@ public class PublicMethodSignatureShouldNotUseCollectionImplementationPlugin imp
   public Analysis provide(ClassFileLoader loader) {
     return (cv, context) -> {
       ClassFileCache<Boolean> isACollection = ClassFileCache.create();  
-      return new ClassVisitor(ASM6, cv) {
+      return new ClassVisitor(ASM_API, cv) {
         @Override
         public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
           if (is(access, ACC_PUBLIC)) {

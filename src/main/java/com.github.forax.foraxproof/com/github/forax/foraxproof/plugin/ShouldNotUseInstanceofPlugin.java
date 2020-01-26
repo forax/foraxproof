@@ -1,10 +1,10 @@
 package com.github.forax.foraxproof.plugin;
 
+import static com.github.forax.foraxproof.AsmVersion.ASM_API;
 import static com.github.forax.foraxproof.plugin.Utils.is;
 import static com.github.forax.foraxproof.plugin.Utils.isNot;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
-import static org.objectweb.asm.Opcodes.ASM6;
 import static org.objectweb.asm.Opcodes.INSTANCEOF;
 
 import org.objectweb.asm.ClassVisitor;
@@ -20,14 +20,14 @@ public class ShouldNotUseInstanceofPlugin implements Plugin {
   @Override
   public Analysis provide(ClassFileLoader loader) {
     return (cv, context) -> {
-      return new ClassVisitor(ASM6, cv) {
+      return new ClassVisitor(ASM_API, cv) {
         @Override
         public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
           MethodVisitor mv = cv.visitMethod(access, name, desc, signature, exceptions);
           if (is(access, ACC_PUBLIC) && isNot(access, ACC_STATIC) && "equals".equals(name) && "(Ljava/lang/Object;)Z".equals(desc)) {
             return mv;
           }
-          return new MethodVisitor(ASM6, mv) {
+          return new MethodVisitor(ASM_API, mv) {
             @Override
             public void visitTypeInsn(int opcode, String type) {
               if (opcode == INSTANCEOF) {
