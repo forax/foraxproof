@@ -1,5 +1,7 @@
 package com.github.forax.foraxproof.analysis;
 
+import static org.objectweb.asm.Opcodes.ASM6;
+
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.ClassVisitor;
@@ -7,7 +9,6 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.ModuleVisitor;
-import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.TypePath;
 
 import com.github.forax.foraxproof.reflect.ClassFileLoader;
@@ -95,7 +96,7 @@ class FrontClassVisitor extends ClassVisitor {
   }
   
   private FrontClassVisitor(ClassVisitor cv, ClassFileLoader loader, ErrorReporter reporter, ContextImpl context) {
-    super(Opcodes.ASM6, cv);
+    super(ASM6, cv);
     this.loader = loader;
     this.reporter = reporter;
     this.context = context;
@@ -103,7 +104,7 @@ class FrontClassVisitor extends ClassVisitor {
   
   static FrontClassVisitor create(Analysis analysis, ClassFileLoader loader, ErrorReporter reporter) {
     ContextImpl context = new ContextImpl(reporter);
-    ClassVisitor chain = analysis.analyze(new ClassVisitor(Opcodes.ASM6) { /*empty*/ }, context);
+    ClassVisitor chain = analysis.analyze(new ClassVisitor(ASM6) { /*empty*/ }, context);
     return new FrontClassVisitor(chain, loader, reporter, context);
   }
 
@@ -177,7 +178,7 @@ class FrontClassVisitor extends ClassVisitor {
     }
     context.initMember(Context.Member.FIELD, name, desc);
     reporter.enterField(context);
-    return new FieldVisitor(Opcodes.ASM6, cv.visitField(access, name, desc, signature, value)) {
+    return new FieldVisitor(ASM6, cv.visitField(access, name, desc, signature, value)) {
       @Override
       public void visitEnd() {
         if (fv != null) {
@@ -195,7 +196,7 @@ class FrontClassVisitor extends ClassVisitor {
     }
     context.initMember(Context.Member.METHOD, name, desc);
     reporter.enterMethod(context);
-    return new MethodVisitor(Opcodes.ASM6, cv.visitMethod(access, name, desc, signature, exceptions)) {
+    return new MethodVisitor(ASM6, cv.visitMethod(access, name, desc, signature, exceptions)) {
       @Override
       public void visitLineNumber(int line, Label start) {
         context.line = line;
