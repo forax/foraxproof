@@ -21,13 +21,13 @@ public interface Type {
   public default Collection<Field> fields() {
     return List.of();
   }
-  public default Optional<Field> field(String name) {
+  public default Optional<Field> field(@SuppressWarnings("unused") String name) {
     return Optional.empty();
   }
   public default Collection<Method> methods() {
     return List.of();
   }
-  public default Optional<Method> method(String name, String descriptor) {
+  public default Optional<Method> method(@SuppressWarnings("unused") String name, @SuppressWarnings("unused") String descriptor) {
     return Optional.empty();
   }
 }
