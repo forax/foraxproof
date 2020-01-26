@@ -1,11 +1,9 @@
-sudo: false
-dist: trusty
 language: java
+jdk: openjdk11
 
-# https://github.com/travis-ci/travis-ci/issues/8408
 install:
-  - unset _JAVA_OPTIONS
+  - java pro_wrapper.java version
 
 script:
-  - mvn --batch-mode install
-
+  - ./pro/bin/pro
+  
