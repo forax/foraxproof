@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public interface ErrorReporter {
-  default void enterClass(Context context) { /* empty */ }
-  default void enterMethod(Context context)  { /* empty */ }
-  default void enterField(Context context)  { /* empty */ }
+  default void enterClass(@SuppressWarnings("unused") Context context) { /* empty */ }
+  default void enterMethod(@SuppressWarnings("unused") Context context)  { /* empty */ }
+  default void enterField(@SuppressWarnings("unused") Context context)  { /* empty */ }
   
   void error(Context context, String type, String info);
 
