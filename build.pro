@@ -3,7 +3,7 @@ import static com.github.forax.pro.builder.Builders.*;
 
 resolver.
     dependencies(list(
-        "org.objectweb.asm=org.ow2.asm:asm:7.3.1"
+        "org.objectweb.asm=org.ow2.asm:asm:9.0"
     ))
 
 packager.
